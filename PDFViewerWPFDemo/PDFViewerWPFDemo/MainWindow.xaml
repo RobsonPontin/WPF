@@ -13,7 +13,7 @@
             <Setter Property="Margin" Value="0 0 0 4"/>
         </Style>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="60"/>
@@ -21,11 +21,12 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition Height="358*"/>
+            <RowDefinition Height="11*"/>
             <RowDefinition Height="52"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+        <StackPanel Grid.Column="0" HorizontalAlignment="Center" Margin="5,0,5,40" Grid.RowSpan="3">
 
             <Button Style="{StaticResource style_TopBarButtons}"
                     Command="{Binding CMDOpenDocument}" Margin="0 2 0 4">
@@ -47,12 +48,22 @@
                 <Image Source="/resources/msg_sticker.png" Width="25"/>
             </Button>
 
+            <Button Style="{StaticResource style_TopBarButtons}" IsEnabled="{Binding ToolsEnabled}"
+                    Command="{Binding CMDUndo}">
+                <Image Source="/resources/undo.png" Width="25"/>
+            </Button>
+
+            <Button Style="{StaticResource style_TopBarButtons}" IsEnabled="{Binding ToolsEnabled}"
+                    Command="{Binding CMDRedo}">
+                <Image Source="/resources/redo.png" Width="25"/>
+            </Button>
+
             <Button Content="Exit" Style="{StaticResource style_TopBarButtons}"
                     Command="{Binding CMDExit}"/>
-            
+
         </StackPanel>
 
-        <WrapPanel Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+        <WrapPanel Grid.Row="2" HorizontalAlignment="Right" Grid.Column="1" Margin="0,0.333,0.333,-0.333">
 
             <Button Style="{StaticResource style_TopBarButtons}" IsEnabled="{Binding ToolsEnabled}"
                     Command="{Binding CMDPreviousPage}" Margin="0 0 4 0">
@@ -69,12 +80,12 @@
                 <Image Source="/resources/zoomin_tool.gif" Width="40"/>
             </Button>
             <Button Style="{StaticResource style_TopBarButtons}" IsEnabled="{Binding ToolsEnabled}"
-                    Command="{Binding CMDZoomOut}" Margin="0 0 0 0">
+                    Command="{Binding CMDZoomOut}" Margin="0 0 4 0">
                 <Image Source="/resources/zoomout_tool.gif" Width="40"/>
             </Button>
-            
-        </WrapPanel>        
 
-        <ContentControl Grid.Column="1" Content="{Binding PDFViewer}" Margin="2 2 2 2"/>
+        </WrapPanel>
+
+        <ContentControl Grid.Column="1" Content="{Binding PDFViewer}" Margin="2,2,2.333,1.667" Grid.RowSpan="2"/>
     </Grid>
 </Window>

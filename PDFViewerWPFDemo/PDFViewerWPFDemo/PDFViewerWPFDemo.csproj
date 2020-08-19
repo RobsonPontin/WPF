@@ -15,6 +15,8 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -59,15 +61,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PDFNet">
-      <HintPath>..\..\..\..\..\..\Work\PDFTron SDK\PDFNetDotNet4\PDFNetDotNet4\Lib\PDFNet\x86\PDFNet.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\..\..\..\..\..\Work\Assemblies\PDFNet.dll</HintPath>
     </Reference>
-    <Reference Include="PDFNetLoader">
-      <HintPath>..\..\..\..\..\..\Work\PDFTron SDK\PDFNetDotNet4\PDFNetDotNet4\Lib\PDFNetLoader.dll</HintPath>
-    </Reference>
-    <Reference Include="PDFViewWPFToolsCS2019, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\x86\Debug\PDFViewWPFToolsCS2019.dll</HintPath>
+    <Reference Include="PDFViewWPFToolsCS2019">
+      <HintPath>..\..\..\..\..\..\..\Work\Assemblies\PDFViewWPFToolsCS2019.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -151,6 +148,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="resources\msg_sticker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="resources\redo.png" />
+    <Resource Include="resources\undo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

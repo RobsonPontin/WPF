@@ -1,9 +1,11 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
 using Microsoft.Win32;
 using pdftron;
 using pdftron.PDF;
 using pdftron.PDF.Tools;
+using pdftron.SDF;
 
 namespace PDFViewerWPFDemo.ViewModel
 {
@@ -11,12 +13,13 @@ namespace PDFViewerWPFDemo.ViewModel
     {
 
         // Required for AnyCPU implementation.
-        private static PDFNetLoader loader = PDFNetLoader.Instance();
+        //TODO: private static PDFNetLoader loader = PDFNetLoader.Instance();
 
         TextSearch textSearch = new TextSearch();
 
         ToolManager _toolManager;
-                
+        UndoManager _undoManager;
+
         public MainViewModel()
         {
             // Initilizes PDFNet
@@ -35,6 +38,8 @@ namespace PDFViewerWPFDemo.ViewModel
             CMDExit = new Relaycommand(ExitApp);
             CMDZoomIn = new Relaycommand(ZoomIn);
             CMDZoomOut = new Relaycommand(ZoomOut);
+            CMDUndo = new Relaycommand(Undo);
+            CMDRedo = new Relaycommand(Redo);
                        
             // Checks the scale factor to determine the right resolution
             PresentationSource source = PresentationSource.FromVisual(Application.Current.MainWindow);
@@ -50,9 +55,21 @@ namespace PDFViewerWPFDemo.ViewModel
 
             // PDF Viewer Events subscription
             PDFViewer.MouseLeftButtonDown += PDFView_MouseLeftButtonDown;
-
+            
             // Enable access to the Tools available
             _toolManager = new ToolManager(PDFViewer);
+            _toolManager.AnnotationAdded += _toolManager_AnnotationAdded;
+            _toolManager.AnnotationRemoved += _toolManager_AnnotationRemoved;
+        }
+
+        private void _toolManager_AnnotationRemoved(Annot annotation)
+        {
+            ResultSnapshot snap = _undoManager.TakeSnapshot();            
+        }
+
+        private void _toolManager_AnnotationAdded(Annot annotation)
+        {
+            ResultSnapshot snap = _undoManager.TakeSnapshot();            
         }
 
         /// <summary>
@@ -69,7 +86,6 @@ namespace PDFViewerWPFDemo.ViewModel
             Page page = workingDoc.GetPage(1);
 
             if (page == null) return;
-
         }          
 
         #region Public Properties
@@ -113,6 +129,10 @@ namespace PDFViewerWPFDemo.ViewModel
         public ICommand CMDZoomOut { get; set; }
 
         public ICommand CMDSelectText { get; set; }
+
+        public ICommand CMDUndo { get; set; }
+
+        public ICommand CMDRedo { get; set; }
         #endregion
 
         #region Operations
@@ -120,6 +140,32 @@ namespace PDFViewerWPFDemo.ViewModel
         // TODO: adjust it to do in increments of 10%
         private void ZoomIn() { PDFViewer.Zoom += 1; }
         private void ZoomOut() { PDFViewer.Zoom -= 1; }
+
+        private void Undo()
+        {
+            if (_undoManager == null)
+                return;
+
+            if (!_undoManager.CanUndo())
+                return;
+
+            _undoManager.Undo();
+
+            PDFViewer.Update(); // PDFViewer updates display
+        }
+
+        private void Redo()
+        {
+            if (_undoManager == null)
+                return;
+
+            if (!_undoManager.CanRedo())
+                return;
+
+            _undoManager.Redo();
+
+            PDFViewer.Update(); // PDFViewer updates display
+        }
 
         /// <summary>
         /// It open dialog to load a PDF File
@@ -129,16 +175,25 @@ namespace PDFViewerWPFDemo.ViewModel
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
             {
-                var doc = new PDFDoc(openFileDialog.FileName);
-                doc.InitSecurityHandler();
+                try
+                {
+                    var doc = new PDFDoc(openFileDialog.FileName);
+                    doc.InitSecurityHandler();
 
-                PDFViewer.CurrentDocument = doc;
+                    PDFViewer.CurrentDocument = doc;
+                    _undoManager = doc.GetUndoManager(); // Get document Undo Redo Manager
 
-                NotifyPropertyChanged(nameof(ToolsEnabled));
+                    NotifyPropertyChanged(nameof(ToolsEnabled));
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("OpenDocument() failed");
+                }
             }            
         }
 
         private void NextPage() { PDFViewer.GotoNextPage(); }
+
         private void PreviousPage() { PDFViewer.GotoPreviousPage(); }
 
         private void AddTextSample()
@@ -175,8 +230,7 @@ namespace PDFViewerWPFDemo.ViewModel
         {
             Application.Current.Shutdown();
         }
-                
-
+        
         #endregion
 
         #region Events
