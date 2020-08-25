@@ -88,7 +88,7 @@
     </ApplicationDefinition>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\Relaycommand.cs" />
-    <Compile Include="TextToImageConverter.cs" />
+    <Compile Include="Converters\TextToImageConverter.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -130,28 +130,28 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\texttool.gif" />
+    <Resource Include="Resources\texttool.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\fileopen.gif" />
+    <Resource Include="Resources\fileopen.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\text2tool.gif" />
+    <Resource Include="Resources\text2tool.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\zoomin_tool.gif" />
-    <Resource Include="resources\zoomout_tool.gif" />
+    <Resource Include="Resources\zoomin_tool.gif" />
+    <Resource Include="Resources\zoomout_tool.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\play_green.png" />
-    <Resource Include="resources\reverse_green.png" />
+    <Resource Include="Resources\play_green.png" />
+    <Resource Include="Resources\reverse_green.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\msg_sticker.png" />
+    <Resource Include="Resources\msg_sticker.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="resources\redo.png" />
-    <Resource Include="resources\undo.png" />
+    <Resource Include="Resources\redo.png" />
+    <Resource Include="Resources\undo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
