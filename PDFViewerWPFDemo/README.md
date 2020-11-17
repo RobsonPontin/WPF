@@ -7,8 +7,8 @@ This sample demonstrate how to implement the PDFViewer on a WPF app using the MV
 ```
 	PDFViewerWPFDemo/
 		Properties/
-		Resources/						- App resources
-		ViewModel/						- MVVM files
+		Resources/					- App resources
+		ViewModel/					- MVVM files
 		App.config
 		App.xaml
 		App.xaml.cs
