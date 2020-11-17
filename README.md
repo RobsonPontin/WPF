@@ -1,22 +1,12 @@
-# PDFViewer Sample
+# PDFTron WPF Samples
+This repository contains sample projects using different features of the PDFTron .NET Framework SDK. The guides for each sample can be found in the [PDFTron .NET documentation](https://www.pdftron.com/documentation/dotnet/)
 
-This sample demonstrate how to implement the PDFViewer on a WPF app using the MVVM pattern.
+## Integration samples
 
-## Project structure
-```
-PDFViewerWPFDemo/
-	PDFViewerWPFDemo/
-		Properties/
-		Resources/						- App resources
-		ViewModel/						- MVVM files
-		App.config
-		App.xaml
-		App.xaml.cs
-		MainWindow.xaml
-		MainWindow.xaml.cs
-		PDFViewerWPFDemo.csproj
-	PDFViewerWPFDemo.sln
-```
+| Sample | Description |
+|--|--|
+|[PDFViewerWPFDemo](./PDFViewerWPFDemo)| Viewer integration using PDFViewCtrl and annotation tools (it also uncludes Undo and Redo)
+
 
 ## Contributing
 
