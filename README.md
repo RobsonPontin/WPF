@@ -10,8 +10,9 @@ This repository contains sample projects using different features of the PDFTron
 
 ## Contributing
 
-See [contributing](./CONTRIBUTING.md).
+See [contributing](./CONTRIBUTING.md)
+
 
 ## License
 
-See [license](./LICENSE).
+See [license](./LICENSE)
