@@ -60,8 +60,12 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PDFNet">
-      <HintPath>..\..\..\..\..\..\..\Work\Assemblies\PDFNet.dll</HintPath>
+    <Reference Include="PDFNet, Version=8.0.17.6554, Culture=neutral, PublicKeyToken=45663c462b939c60, processorArchitecture=x86">
+      <HintPath>..\packages\PDFNet.8.0.1.76554\lib\net40\PDFNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PDFNetLoader, Version=1.0.0.2, Culture=neutral, PublicKeyToken=45663c462b939c60, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFNet.8.0.1.76554\lib\net40\PDFNetLoader.dll</HintPath>
     </Reference>
     <Reference Include="PDFViewWPFToolsCS2019">
       <HintPath>..\..\..\..\..\..\..\Work\Assemblies\PDFViewWPFToolsCS2019.dll</HintPath>
@@ -121,6 +125,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -153,9 +158,19 @@
     <Resource Include="Resources\redo.png" />
     <Resource Include="Resources\undo.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\exit.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
+  <Import Project="..\packages\PDFNet.8.0.1.76554\build\net40\PDFNet.targets" Condition="Exists('..\packages\PDFNet.8.0.1.76554\build\net40\PDFNet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\PDFNet.8.0.1.76554\build\net40\PDFNet.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PDFNet.8.0.1.76554\build\net40\PDFNet.targets'))" />
+  </Target>
 </Project>

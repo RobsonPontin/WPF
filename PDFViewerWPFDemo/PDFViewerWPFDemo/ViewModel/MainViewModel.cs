@@ -11,10 +11,6 @@ namespace PDFViewerWPFDemo.ViewModel
 {
     class MainViewModel : BaseViewModel
     {
-
-        // Required for AnyCPU implementation.
-        //TODO: private static PDFNetLoader loader = PDFNetLoader.Instance();
-
         TextSearch textSearch = new TextSearch();
 
         ToolManager _toolManager;
@@ -62,32 +58,6 @@ namespace PDFViewerWPFDemo.ViewModel
             _toolManager.AnnotationRemoved += _toolManager_AnnotationRemoved;
         }
 
-        private void _toolManager_AnnotationRemoved(Annot annotation)
-        {
-            ResultSnapshot snap = _undoManager.TakeSnapshot();            
-        }
-
-        private void _toolManager_AnnotationAdded(Annot annotation)
-        {
-            ResultSnapshot snap = _undoManager.TakeSnapshot();            
-        }
-
-        /// <summary>
-        /// On Left Mouse Button Down checks which tool is selected and anottate
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void PDFView_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            var workingDoc = PDFViewer.CurrentDocument;
-
-            var clickPos = e.GetPosition(PDFViewer);
-
-            Page page = workingDoc.GetPage(1);
-
-            if (page == null) return;
-        }          
-
         #region Public Properties
 
         PDFViewWPF _pDFView;
@@ -103,7 +73,7 @@ namespace PDFViewerWPFDemo.ViewModel
 
         public 
 
-        string _windowTitle;
+        string _windowTitle = "PDFTron WPF Sample App";
         public string WindowTitle { get { return _windowTitle; } set { _windowTitle = value; } }
 
         public bool ToolsEnabled { get { return PDFViewer.CurrentDocument == null ? false : true; } }
@@ -185,7 +155,7 @@ namespace PDFViewerWPFDemo.ViewModel
 
                     NotifyPropertyChanged(nameof(ToolsEnabled));
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw new Exception("OpenDocument() failed");
                 }
@@ -238,6 +208,35 @@ namespace PDFViewerWPFDemo.ViewModel
         {
             PDFNet.Terminate();
         }
+
+        private void _toolManager_AnnotationRemoved(Annot annotation)
+        {
+            ResultSnapshot snap = _undoManager.TakeSnapshot();
+        }
+
+        private void _toolManager_AnnotationAdded(Annot annotation)
+        {
+            ResultSnapshot snap = _undoManager.TakeSnapshot();
+        }
+
+        /// <summary>
+        /// On Left Mouse Button Down checks which tool is selected and anottate
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PDFView_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var workingDoc = PDFViewer.CurrentDocument;
+            if (workingDoc == null)
+                return;
+
+            var clickPos = e.GetPosition(PDFViewer);
+
+            Page page = workingDoc.GetPage(1);
+
+            if (page == null) return;
+        }
+
         #endregion
     }
 }
