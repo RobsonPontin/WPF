@@ -1,18 +1,9 @@
-# PDFTron WPF Samples
-This repository contains sample projects using different features of the PDFTron .NET Framework SDK. The guides for each sample can be found in the [PDFTron .NET documentation](https://www.pdftron.com/documentation/dotnet/)
+# WPF Samples
 
-## Integration samples
+Repository contains sample projects using Windows Presentation Foundation (WPF) UI framework.
+
+## Samples
 
 | Sample | Description |
 |--|--|
-|[PDFViewerWPFDemo](./PDFViewerWPFDemo)| Viewer integration using PDFViewCtrl and annotation tools (it also uncludes Undo and Redo)
-
-
-## Contributing
-
-See [contributing](./CONTRIBUTING.md)
-
-
-## License
-
-See [license](./LICENSE)
+|[PDFViewerWPFDemo](./PDFViewerWPFDemo)| Viewer integration using PDFViewCtrl and annotation tools (it also uncludes Undo and Redo). More info on [PDFTron .NET documentation](https://www.pdftron.com/documentation/dotnet/)
